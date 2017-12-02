@@ -6,15 +6,26 @@ export default class FilterString extends Component {
 
         super()
 
-        state.this = {
+        this.state = {
 
             userInput: '',
 
-            unFilteredArray: ['snap', 'crackle', 'pop',],
+            names: ['snap', 'crackle', 'pop', 'krackle', 'popped', 'frackle', 'snaz',],
 
-            filteredArray: [],
+            filteredNames: [],
 
         }
+    }
+
+    filterName(userInput) {
+        const names = this.state.names
+        const filteredNames = []
+        for (let i = 0; i < names.length; i++) {
+            if (names[i].includes(userInput)) {
+            filteredNames.push(names[i])
+            }
+        }
+        this.setState({filteredNames: filteredNames})
     }
 
     handleChange(val) {
@@ -25,10 +36,10 @@ export default class FilterString extends Component {
         return (
             <div className="puzzleBox filterStringPB">
                 <h4 value="Filter String">Filter String</h4>
-                <span className="puzzleText"></span>
+                <span className="puzzleText">{JSON.stringify(this.state.names)}</span>
                 <input className="inputLine" value="Filter String" value={this.state.userInput} onChange={(e) => this.handleChange(e.target.value)}></input>
-                <button className="confirmationButton" onClick={() => this.filterGuitars(this.state.userInput)}>Filter</button>
-                <span className="resultsBox filterStringPB">Filtered:{JSON.stringify(this.state.filteredGuitar)}</span>
+                <button className="confirmationButton" onClick={() => this.filterName(this.state.userInput)}>Filter</button>
+                <span className="resultsBox filterStringPB">Filtered:{JSON.stringify(this.state.filteredNames)}</span>
             </div>
         )
     }
